@@ -1,0 +1,471 @@
+#SQL Queries to Create Movie-DataBase
+# with Tables Name Actor, Director, Movies, Movie_cast, Rating;
+
+
+CREATE TABLE ACTOR(ACT_ID NUMBER(2),
+     ACT_NAME VARCHAR(15),
+    ACT_GENDER CHAR,
+    CONSTRAINT PK_AID PRIMARY KEY(ACT_ID)
+    );
+    
+    
+    CREATE TABLE DIRECTOR(DIR_ID NUMBER(2),
+     DIR_NAME VARCHAR(20),
+     DIR_PHONE NUMBER(10),
+     CONSTRAINT PK_DID PRIMARY KEY(DIR_ID)
+     );
+     
+     CREATE TABLE MOVIES(MOV_ID NUMBER(3),
+     MOV_TITLE VARCHAR(25),
+     MOV_YEAR NUMBER(4),
+     MOV_LANG VARCHAR(15),
+     DIR_ID NUMBER(2),
+     CONSTRAINT PK_MID PRIMARY KEY(MOV_ID),
+     CONSTRAINT FK_DIR FOREIGN KEY(DIR_ID) REFERENCES DIRECTOR(DIR_ID) ON DELETE CASCADE
+     );
+     
+     
+     CREATE TABLE MOVIE_CAST(ACT_ID NUMBER(2),
+      MOV_ID NUMBER(3),
+      ROLE VARCHAR(20),
+      CONSTRAINT CPK_AM PRIMARY KEY(ACT_ID,MOV_ID),
+      CONSTRAINT FK_MA FOREIGN KEY(ACT_ID) REFERENCES ACTOR(ACT_ID) ON DELETE CASCADE,
+      CONSTRAINT FK_MD FOREIGN KEY(MOV_ID) REFERENCES MOVIES(MOV_ID) ON DELETE CASCADE
+      );
+      
+      
+      CREATE TABLE RATING(MOV_ID NUMBER(3),
+      REV_STARS NUMBER(1),
+      CONSTRAINT CPK_MCT PRIMARY KEY(MOV_ID,REV_STARS),
+      CONSTRAINT FK_MCD FOREIGN KEY(MOV_ID) REFERENCES MOVIES(MOV_ID) ON DELETE CASCADE
+      );
+      
+      INSERT INTO ACTOR VALUES(&ACT_ID,'&ACT_NAME','&ACT_GENDER');
+      
+      Enter value for act_id: 10
+Enter value for act_name: AAYUSHMAN
+Enter value for act_gender: M
+old   1: INSERT INTO ACTOR VALUES(&ACT_ID,'&ACT_NAME','&ACT_GENDER')
+new   1: INSERT INTO ACTOR VALUES(10,'AAYUSHMAN','M')
+
+Enter value for act_id: 20
+Enter value for act_name: VARUN DHAWAN
+Enter value for act_gender: M
+old   1: INSERT INTO ACTOR VALUES(&ACT_ID,'&ACT_NAME','&ACT_GENDER')
+new   1: INSERT INTO ACTOR VALUES(20,'VARUN DHAWAN','M')
+
+Enter value for act_id: 30
+Enter value for act_name: DEEPIKA
+Enter value for act_gender: F
+old   1: INSERT INTO ACTOR VALUES(&ACT_ID,'&ACT_NAME','&ACT_GENDER')
+new   1: INSERT INTO ACTOR VALUES(30,'DEEPIKA','F')
+
+Enter value for act_id: 40
+Enter value for act_name: CHRIS PRATT
+Enter value for act_gender: M
+old   1: INSERT INTO ACTOR VALUES(&ACT_ID,'&ACT_NAME','&ACT_GENDER')
+new   1: INSERT INTO ACTOR VALUES(40,'CHRIS PRATT','M')
+
+Enter value for act_id: 50
+Enter value for act_name: ANTHONY PERKINS
+Enter value for act_gender: M
+old   1: INSERT INTO ACTOR VALUES(&ACT_ID,'&ACT_NAME','&ACT_GENDER')
+new   1: INSERT INTO ACTOR VALUES(50,'ANTHONY PERKINS','M')
+
+Enter value for act_id: 60
+Enter value for act_name: SHRADDHA
+Enter value for act_gender: F
+old   1: INSERT INTO ACTOR VALUES(&ACT_ID,'&ACT_NAME','&ACT_GENDER')
+new   1: INSERT INTO ACTOR VALUES(60,'SHRADDHA','F')
+
+
+
+SELECT * FROM ACTOR;
+
+Output:
+
+ ACT_ID      ACT_NAME           ACT_GENDER
+----------   ---------------  --------------- 
+ 10          AAYUSHMAN         M
+ 20          VARUN DHAWAN      M
+ 30          DEEPIKA           F
+ 40          CHRIS PRATT       M
+ 50          ANTHONY PERKINS   M
+ 60          SHRADDHA          F
+ 
+ INSERT INTO DIRECTOR VALUES(&DIR_ID,'&ADIR_NAME',&DIR_PHONE);
+ 
+ Enter value for dir_id: 11
+Enter value for adir_name: SOOJITH
+Enter value for dir_phone: 1020304050
+old   1: INSERT INTO DIRECTOR VALUES(&DIR_ID,'&ADIR_NAME',&DIR_PHONE)
+new   1: INSERT INTO DIRECTOR VALUES(11,'SOOJITH',1020304050)
+
+Enter value for dir_id: 22
+Enter value for adir_name: STEVEN SPIELBERG
+Enter value for dir_phone: 1122334455
+old   1: INSERT INTO DIRECTOR VALUES(&DIR_ID,'&ADIR_NAME',&DIR_PHONE)
+new   1: INSERT INTO DIRECTOR VALUES(22,'STEVEN SPIELBERG',1122334455)
+
+Enter value for dir_id: 33
+Enter value for adir_name: DAVID
+Enter value for dir_phone: 9966443322
+old   1: INSERT INTO DIRECTOR VALUES(&DIR_ID,'&ADIR_NAME',&DIR_PHONE)
+new   1: INSERT INTO DIRECTOR VALUES(33,'DAVID',9966443322)
+
+Enter value for dir_id: 44
+Enter value for adir_name: HITCH COCK
+Enter value for dir_phone: 1002003000
+old   1: INSERT INTO DIRECTOR VALUES(&DIR_ID,'&ADIR_NAME',&DIR_PHONE)
+new   1: INSERT INTO DIRECTOR VALUES(44,'HITCH COCK',1002003000)
+
+Enter value for dir_id: 55
+Enter value for adir_name: BANSALI
+Enter value for dir_phone: 9080706050
+old   1: INSERT INTO DIRECTOR VALUES(&DIR_ID,'&ADIR_NAME',&DIR_PHONE)
+new   1: INSERT INTO DIRECTOR VALUES(55,'BANSALI',9080706050)
+
+Enter value for dir_id: 66
+Enter value for adir_name: REMO
+Enter value for dir_phone: 9988776655
+old   1: INSERT INTO DIRECTOR VALUES(&DIR_ID,'&ADIR_NAME',&DIR_PHONE)
+new   1: INSERT INTO DIRECTOR VALUES(66,'REMO',9988776655)
+
+
+SELECT * FROM DIRECTOR;
+
+Output:
+
+ DIR_ID       DIR_NAME              DIR_PHONE
+-------     -------------------     ----------
+ 11          SOOJITH                1020304050
+ 22          STEVEN SPIELBERG       1122334455
+ 33          DAVID                  9966443322
+ 44          HITCH COCK             1002003000
+ 55          BANSALI                9080706050
+ 66          REMO                   9988776655
+ 
+ 
+ INSERT INTO MOVIES VALUES(&MOV_ID,'&MOV_TITLE',&MOV_YEAR,'&MOV_LANG',&DIR_ID);
+ 
+ Enter value for mov_id: 111
+Enter value for mov_title: ABCD2
+Enter value for mov_year: 1999
+Enter value for mov_lang: HINDI
+Enter value for dir_id: 66
+old   1:  INSERT INTO MOVIES VALUES(&MOV_ID,'&MOV_TITLE',&MOV_YEAR,'&MOV_LANG',&DIR_ID)
+new   1:  INSERT INTO MOVIES VALUES(111,'ABCD2',1999,'HINDI',66)
+
+Enter value for mov_id: 222
+Enter value for mov_title: PSYCHO
+Enter value for mov_year: 1995
+Enter value for mov_lang: ENGLISH
+Enter value for dir_id: 44
+old   1:  INSERT INTO MOVIES VALUES(&MOV_ID,'&MOV_TITLE',&MOV_YEAR,'&MOV_LANG',&DIR_ID)
+new   1:  INSERT INTO MOVIES VALUES(222,'PSYCHO',1995,'ENGLISH',44)
+
+Enter value for mov_id: 333
+Enter value for mov_title: BAREILLI KI BURFI
+Enter value for mov_year: 2017
+Enter value for mov_lang: HINDI
+Enter value for dir_id: 11
+old   1:  INSERT INTO MOVIES VALUES(&MOV_ID,'&MOV_TITLE',&MOV_YEAR,'&MOV_LANG',&DIR_ID)
+new   1:  INSERT INTO MOVIES VALUES(333,'BAREILLI KI BURFI',2017,'HINDI',11)
+
+Enter value for mov_id: 444
+Enter value for mov_title: RAMLEELA
+Enter value for mov_year: 2015
+Enter value for mov_lang: HINDI
+Enter value for dir_id: 55
+old   1:  INSERT INTO MOVIES VALUES(&MOV_ID,'&MOV_TITLE',&MOV_YEAR,'&MOV_LANG',&DIR_ID)
+new   1:  INSERT INTO MOVIES VALUES(444,'RAMLEELA',2015,'HINDI',55)
+
+Enter value for mov_id: 555
+Enter value for mov_title: MEIN TERA HERO
+Enter value for mov_year: 2014
+Enter value for mov_lang: HINDI
+Enter value for dir_id: 33
+old   1:  INSERT INTO MOVIES VALUES(&MOV_ID,'&MOV_TITLE',&MOV_YEAR,'&MOV_LANG',&DIR_ID)
+new   1:  INSERT INTO MOVIES VALUES(555,'MEIN TERA HERO',2014,'HINDI',33)
+
+Enter value for mov_id: 666
+Enter value for mov_title: JURASSIC PARK
+Enter value for mov_year: 2000
+Enter value for mov_lang: ENGLISH
+Enter value for dir_id: 22
+old   1:  INSERT INTO MOVIES VALUES(&MOV_ID,'&MOV_TITLE',&MOV_YEAR,'&MOV_LANG',&DIR_ID)
+new   1:  INSERT INTO MOVIES VALUES(666,'JURASSIC PARK',2000,'ENGLISH',22)
+
+Enter value for mov_id: 777
+Enter value for mov_title: VICKY DONOR
+Enter value for mov_year: 2011
+Enter value for mov_lang: HINDI
+Enter value for dir_id: 11
+old   1:  INSERT INTO MOVIES VALUES(&MOV_ID,'&MOV_TITLE',&MOV_YEAR,'&MOV_LANG',&DIR_ID)
+new   1:  INSERT INTO MOVIES VALUES(777,'VICKY DONOR',2011,'HINDI',11)
+
+SELECT * FROM MOVIES;
+
+
+output:
+
+ MOV_ID   MOV_TITLE              MOV_YEAR      MOV_LANG   DIR_ID
+------   ------------------      ----------    ---------  ------
+ 111      ABCD2                  1999          HINDI      66
+ 222      PSYCHO                 1995          ENGLISH    44
+ 333      BAREILLI KI BURFI      2017          HINDI      11
+ 444      RAMLEELA               2015          HINDI      55
+ 555      MEIN TERA HERO         2014          HINDI      33
+ 666      JURASSIC PARK          2000          ENGLISH    22
+ 777      VICKY DONOR            2011          HINDI      11
+ 
+ INSERT INTO MOVIE_CAST VALUES(&ACT_ID,&MOV_ID,'&ROLE');
+ 
+ Enter value for act_id: 10
+Enter value for mov_id: 333
+Enter value for role: HERO
+old   1:  INSERT INTO MOVIE_CAST VALUES(&ACT_ID,&MOV_ID,'&ROLE')
+new   1:  INSERT INTO MOVIE_CAST VALUES(10,333,'HERO')
+
+Enter value for act_id: 20
+Enter value for mov_id: 555
+Enter value for role: HERO
+old   1:  INSERT INTO MOVIE_CAST VALUES(&ACT_ID,&MOV_ID,'&ROLE')
+new   1:  INSERT INTO MOVIE_CAST VALUES(20,555,'HERO')
+
+Enter value for act_id: 30
+Enter value for mov_id: 444
+Enter value for role: HEROINE
+old   1:  INSERT INTO MOVIE_CAST VALUES(&ACT_ID,&MOV_ID,'&ROLE')
+new   1:  INSERT INTO MOVIE_CAST VALUES(30,444,'HEROINE')
+
+Enter value for act_id: 40
+Enter value for mov_id: 666
+Enter value for role: HERO
+old   1:  INSERT INTO MOVIE_CAST VALUES(&ACT_ID,&MOV_ID,'&ROLE')
+new   1:  INSERT INTO MOVIE_CAST VALUES(40,666,'HERO')
+
+Enter value for act_id: 50
+Enter value for mov_id: 222
+Enter value for role: VILLAIN
+old   1:  INSERT INTO MOVIE_CAST VALUES(&ACT_ID,&MOV_ID,'&ROLE')
+new   1:  INSERT INTO MOVIE_CAST VALUES(50,222,'VILLAIN')
+
+Enter value for act_id: 60
+Enter value for mov_id: 111
+Enter value for role: HEROINE
+old   1:  INSERT INTO MOVIE_CAST VALUES(&ACT_ID,&MOV_ID,'&ROLE')
+new   1:  INSERT INTO MOVIE_CAST VALUES(60,111,'HEROINE')
+
+Enter value for act_id: 20
+Enter value for mov_id: 111
+Enter value for role: HERO
+old   1:  INSERT INTO MOVIE_CAST VALUES(&ACT_ID,&MOV_ID,'&ROLE')
+new   1:  INSERT INTO MOVIE_CAST VALUES(20,111,'HERO')
+
+Enter value for act_id: 10
+Enter value for mov_id: 777
+Enter value for role: HERO
+old   1:  INSERT INTO MOVIE_CAST VALUES(&ACT_ID,&MOV_ID,'&ROLE')
+new   1:  INSERT INTO MOVIE_CAST VALUES(10,777,'HERO')
+
+Enter value for act_id: 60
+Enter value for mov_id: 333
+Enter value for role: HEROINE
+old   1:  INSERT INTO MOVIE_CAST VALUES(&ACT_ID,&MOV_ID,'&ROLE')
+new   1:  INSERT INTO MOVIE_CAST VALUES(60,333,'HEROINE')
+
+SELECT * FROM MOVIE_CAST;
+
+output:
+
+    ACT_ID     MOV_ID     ROLE
+---------- ---------- --------------------
+        10        333              HERO
+        20        555              HERO
+        30        444            HEROINE
+        40        666              HERO    
+        50        222              VILLAIN
+        60        111            HEROINE
+        20        111               HERO
+        10        777              HERO
+        60        333           HEROINE
+        
+        
+        INSERT INTO RATING VALUES(&MOV_ID,&REV_STARS);
+        
+Enter value for mov_id: 111
+Enter value for rev_stars: 3
+old   1: INSERT INTO RATING VALUES(&MOV_ID,&REV_STARS)
+new   1: INSERT INTO RATING VALUES(111,3)
+
+Enter value for mov_id: 222
+Enter value for rev_stars: 2
+old   1: INSERT INTO RATING VALUES(&MOV_ID,&REV_STARS)
+new   1: INSERT INTO RATING VALUES(222,2)
+
+Enter value for mov_id: 333
+Enter value for rev_stars: 0
+old   1: INSERT INTO RATING VALUES(&MOV_ID,&REV_STARS)
+new   1: INSERT INTO RATING VALUES(333,0)
+
+Enter value for mov_id: 444
+Enter value for rev_stars: 4
+old   1: INSERT INTO RATING VALUES(&MOV_ID,&REV_STARS)
+new   1: INSERT INTO RATING VALUES(444,4)
+
+Enter value for mov_id: 555
+Enter value for rev_stars: 3
+old   1: INSERT INTO RATING VALUES(&MOV_ID,&REV_STARS)
+new   1: INSERT INTO RATING VALUES(555,3)
+
+Enter value for mov_id: 666
+Enter value for rev_stars: 2
+old   1: INSERT INTO RATING VALUES(&MOV_ID,&REV_STARS)
+new   1: INSERT INTO RATING VALUES(666,2)
+
+Enter value for mov_id: 222
+Enter value for rev_stars: 3
+old   1: INSERT INTO RATING VALUES(&MOV_ID,&REV_STARS)
+new   1: INSERT INTO RATING VALUES(222,3)
+
+Enter value for mov_id: 111
+Enter value for rev_stars: 5
+old   1: INSERT INTO RATING VALUES(&MOV_ID,&REV_STARS)
+new   1: INSERT INTO RATING VALUES(111,5)
+
+Enter value for mov_id: 444
+Enter value for rev_stars: 5
+old   1: INSERT INTO RATING VALUES(&MOV_ID,&REV_STARS)
+new   1: INSERT INTO RATING VALUES(444,5)
+
+Enter value for mov_id: 777
+Enter value for rev_stars: 4
+old   1: INSERT INTO RATING VALUES(&MOV_ID,&REV_STARS)
+new   1: INSERT INTO RATING VALUES(777,4)
+
+SELECT * FROM RATING;
+
+
+  MOV_ID      REV_STARS
+ ----------   ----------
+       111          3
+       111          5
+       222          2
+       222          3
+       333          0
+       444          4
+       444          5
+       555          3
+       666          2
+       777          4
+       
+
+1] List the titles of all movies directed by hitch cock
+
+SELECT M.MOV_TITLE
+FROM MOVIES M,DIRECTOR D
+WHERE D.DIR_ID=M.DIR_ID AND D.DIR_NAME='HITCH COCK';
+
+Output:
+
+MOV_TITLE
+--------------
+PSYCHO
+
+
+2] Find the movie names where one or more actors acted in two or more movies
+
+SELECT M.MOV_TITLE,A.ACT_NAME
+    FROM MOVIES M,ACTOR A,MOVIE_CAST M1
+    WHERE M.MOV_ID=M1.MOV_ID AND
+                   M1.ACT_ID=A.ACT_ID AND
+                  M1.ACT_ID IN( SELECT ACT_ID
+                                             FROM MOVIE_CAST
+                                             GROUP BY ACT_ID
+                                             HAVING COUNT(MOV_ID)>1);
+Output
+
+MOV_TITLE            ACT_NAME
+-------------------- ---------------
+MEIN TERA HERO       VARUN DHAWAN
+ABCD2                VARUN DHAWAN
+VICKY DONOR          AAYUSHMAN
+BAREILLI KI BURFI    AAYUSHMAN
+BAREILLI KI BURFI    SHRADDHA
+ABCD2                SHRADDHA
+
+
+
+3] List all actors who acted in a movie before 2000 and also in a movie after 2015.(Use  JOIN operator)
+
+(SELECT A.ACT_NAME
+      FROM ACTOR A JOIN MOVIE_CAST M ON A.ACT_ID=M.ACT_ID
+                   JOIN MOVIES M1 ON M.MOV_ID=M1.MOV_ID
+     WHERE  M1.MOV_YEAR<2000  )
+     INTERSECT
+      (SELECT A.ACT_NAME
+        FROM ACTOR A JOIN MOVIE_CAST M ON A.ACT_ID=M.ACT_ID
+                   JOIN MOVIES M1 ON M.MOV_ID=M1.MOV_ID
+      WHERE M1.MOV_YEAR>2015   );
+Output
+
+ACT_NAME
+-----------
+SHRADDHA
+
+
+4] Find the title of movies and no. of stars for each movie that has at least one rating and find the highest no. of stars that movie received. Sort the result by movie title
+
+SELECT M.MOV_TITLE,MAX(R.REV_STARS)
+  FROM MOVIES M,RATING R
+  WHERE M.MOV_ID=R.MOV_ID AND
+  M.MOV_ID IN(SELECT MOV_ID
+                             FROM RATING
+                             GROUP BY MOV_ID,REV_STARS
+                             HAVING REV_STARS>0 )
+     GROUP BY M.MOV_TITLE
+     ORDER BY M.MOV_TITLE;
+Output
+
+MOV_TITLE         MAX(R.REV_STARS)
+---------------   ----------------
+ABCD2             5
+JURASSIC PARK     2
+MEIN TERA HERO    3
+PSYCHO            3
+RAMLEELA          5
+VICKY DONOR       4
+
+5] Update ratings of all movies directed by STEVEN SPIELBERG
+
+UPDATE RATING SET REV_STARS=5
+ WHERE MOV_ID IN ( SELECT MOV_ID
+                                       FROM MOVIES
+                                       WHERE DIR_ID=(SELECT DIR_ID
+                                                                      FROM DIRECTOR
+                                                                     WHERE DIR_NAME='STEVEN SPIELBERG' )
+  );
+  
+  
+  
+  Output
+
+SELECT * FROM RATING;
+    MOV_ID  REV_STARS
+---------- ----------
+       111          3
+       111          5
+       222          2
+       222          3
+       333          0
+       444          4
+       444          5
+       555          3
+       666          5
+       777          4
+       
+       
+
+
+ 
